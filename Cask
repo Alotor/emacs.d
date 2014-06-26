@@ -4,6 +4,7 @@
 (source org)
 
 (depends-on "ace-jump-mode")
+(depends-on "afternoon-theme")
 (depends-on "ag")
 (depends-on "cask")
 (depends-on "clojure-mode")
@@ -13,7 +14,7 @@
 (depends-on "highlight-chars")
 (depends-on "ido-at-point")
 (depends-on "ido-vertical-mode")
+(depends-on "nyan-mode")
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "projectile")
-(depends-on "soft-charcoal-theme")

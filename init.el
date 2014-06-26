@@ -15,13 +15,14 @@
                 (or (buffer-file-name) load-file-name)))
 
 ;; Theme
-(load-theme 'soft-charcoal t)
-(set-cursor-color "firebrick")
+(load-theme 'afternoon t)
 
 ;; Disable default modes
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
+
+(setq dabbrev-case-fold-search nil)
 
 (setq inhibit-startup-screen t)
 (setq visible-bell 1)
@@ -93,6 +94,12 @@
 (define-key global-map (kbd "C-c j c") 'ace-jump-char-mode)
 (define-key global-map (kbd "C-c j l") 'ace-jump-line-mode)
 
+;; Org mode
+(setq org-log-done t)
+
+;; Nyam-mode
+(nyan-mode)
+(nyan-start-animation)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
