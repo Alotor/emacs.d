@@ -15,7 +15,7 @@
                 (or (buffer-file-name) load-file-name)))
 
 ;; Theme
-(load-theme 'zenburn t)
+(load-theme 'soft-charcoal t)
 (set-cursor-color "firebrick")
 
 ;; Disable default modes
@@ -95,6 +95,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" default)))
  '(scheme-program-name "mit-scheme"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

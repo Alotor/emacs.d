@@ -15,4 +15,4 @@
 (depends-on "ido-vertical-mode")
 (depends-on "pallet")
 (depends-on "projectile")
-(depends-on "zenburn-theme")
+(depends-on "soft-charcoal-theme")
