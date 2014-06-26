@@ -13,6 +13,7 @@
 (depends-on "highlight-chars")
 (depends-on "ido-at-point")
 (depends-on "ido-vertical-mode")
+(depends-on "org")
 (depends-on "pallet")
 (depends-on "projectile")
 (depends-on "soft-charcoal-theme")

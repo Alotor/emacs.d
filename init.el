@@ -41,8 +41,12 @@
 (setq x-stretch-cursor 1)
 
 (require 'highlight-chars)
-(add-hook 'font-lock-mode-hook 'hc-highlight-tabs)
-(add-hook 'font-lock-mode-hook 'hc-highlight-trailing-whitespace)
+(defun set-highlight (mode-hook)
+  (add-hook mode-hook 'hc-highlight-tabs)
+  (add-hook mode-hook 'hc-highlight-trailing-whitespace))
+
+(set-highlight 'prog-mode-hook)
+(set-highlight 'c-mode-common-hook)
 
 ;; Set auto-indent when enter
 (global-set-key "\C-m" 'newline-and-indent)
