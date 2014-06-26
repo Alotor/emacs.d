@@ -18,3 +18,4 @@
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "projectile")
+(depends-on "undo-tree")

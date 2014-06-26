@@ -17,16 +17,27 @@
 ;; Theme
 (load-theme 'afternoon t)
 
-;; Disable default modes
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
+;; Disable window-system s**t
+(when window-system
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
 
+;; Change emacs defaults
 (setq dabbrev-case-fold-search nil)
-
 (setq inhibit-startup-screen t)
 (setq visible-bell 1)
 (setq echo-keystrokes 0.02)
+(fset 'yes-or-no-p 'y-or-n-p)
+(prefer-coding-system 'utf-8)
+(define-key global-map (kbd "C-c SPC") 'pop-to-mark-command)
+(define-key global-map (kbd "M-o") 'mode-line-other-buffer)
+
+;; Text size
+;; (set-face-attribute 'default nil :height 90)
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; Tabs/spaces
 (setq-default indent-tabs-mode nil)
@@ -54,9 +65,22 @@
 
 ;; Backup files
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+(setq delete-old-versions -1) ;; Extra saving
 (setq backup-by-copying t)
-(setq delete-old-versions t)
 (setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list" t)))
+
+;; History
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
 
 ;; Flex IDO
 (require 'flx-ido)
@@ -96,6 +120,12 @@
 
 ;; Org mode
 (setq org-log-done t)
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+
+;; Undo Tree
+(global-undo-tree-mode)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-diff t)
 
 ;; Nyam-mode
 (nyan-mode)
