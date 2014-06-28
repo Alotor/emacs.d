@@ -17,5 +17,8 @@
 (depends-on "nyan-mode")
 (depends-on "org")
 (depends-on "pallet")
+(depends-on "paredit")
 (depends-on "projectile")
+(depends-on "smartparens")
 (depends-on "undo-tree")
+(depends-on "web-mode")

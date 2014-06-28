@@ -29,6 +29,8 @@
 (setq inhibit-startup-screen t)
 (setq visible-bell 1)
 (setq echo-keystrokes 0.02)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
 (fset 'yes-or-no-p 'y-or-n-p)
 (prefer-coding-system 'utf-8)
 (define-key global-map (kbd "C-c SPC") 'pop-to-mark-command)
@@ -121,11 +123,31 @@
 ;; Org mode
 (setq org-log-done t)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+(define-key global-map (kbd "C-c o l") 'org-store-link)
+(define-key global-map (kbd "C-c o c") 'org-capture)
+(define-key global-map (kbd "C-c o a") 'org-agenda)
+(define-key global-map (kbd "C-c o b") 'org-iswitchb)
 
 ;; Undo Tree
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-diff t)
+
+;; Smartparens
+(require 'smartparens-config)
+
+;; Paredit
+(require 'paredit)
+
+;; Web Mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 ;; Nyam-mode
 (nyan-mode)
