@@ -3,7 +3,7 @@
 ;; echo export PATH=~/.cask/bin:$PATH >> .zshrc
 ;; cd ~/.emacs.d && cask install
 
-(add-to-list 'load-path "~/.emacs.d/")
+; (add-to-list 'load-path "~/.emacs.d/")
 
 ;; Package Manager
 (require 'cask "~/.cask/cask.el")
@@ -138,7 +138,8 @@
 (smartparens-global-strict-mode)
 
 ;; Rainbow delimiter
-(global-rainbow-delimiters-mode)
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 
 ;; Web Mode
@@ -245,3 +246,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
