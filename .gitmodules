@@ -1,3 +1,6 @@
 [submodule "neotree"]
 	path = neotree
 	url = https://github.com/jaypei/emacs-neotree.git
+[submodule "org-mode"]
+	path = org-mode
+	url = git://orgmode.org/org-mode.git

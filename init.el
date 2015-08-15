@@ -287,3 +287,60 @@
 ;; Invalidate C-z key
 (global-unset-key (kbd "C-z"))
 (global-set-key (kbd "C-z C-z") 'my-suspend-frame)
+
+;; Custom to change to a register
+(global-set-key (kbd "C-c r") 'jump-to-register)
+
+;; ORG MODE
+(add-to-list 'load-path "~/.emacs.d/org-mode/")
+(require 'org)
+
+;; We only need Emacs Lisp and Clojure in this tutorial:
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (clojure . t)))
+
+;; Use cider as the clojure execution backend
+(setq org-babel-clojure-backend 'cider)
+
+;; Let's have pretty source code blocks
+(setq org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-fontify-natively t
+      org-confirm-babel-evaluate nil)
+
+(setq org-use-speed-commands t)
+(setq org-directory "~/Notas")
+(setq org-default-notes-file (concat org-directory "/capture.org"))
+(define-key global-map "\C-cc" 'org-capture)
+
+;(add-to-list 'org-babel-load-languages '(emacs-lisp . t))
+;(add-to-list 'org-babel-load-languages '(clojure . t))
+;(add-to-list 'org-babel-load-languages '(python . t))
+;(org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages)
+
+(set-register ?o (cons 'file (concat org-directory "/organizer.org")))
+(set-register ?t (cons 'file (concat org-directory "/capture.org")))
+(set-register ?e (cons 'file "~/.emacs.d/init.el"))
+
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+
+;; Export to asciidoctor
+(require 'ox-asciidoc)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/Notas/organizer.org"))))
+
+;; CIDER
+(require 'cider)
+(setq nrepl-hide-special-buffers t
+      cider-repl-pop-to-buffer-on-connect nil
+      cider-popup-stacktraces nil
+      cider-repl-popup-stacktraces t)
+
+
