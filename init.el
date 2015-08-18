@@ -399,3 +399,6 @@
 (require 'smex)
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
+
+;; visual improvement
+(setq default-line-spacing 4)
