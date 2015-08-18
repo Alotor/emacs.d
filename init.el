@@ -15,9 +15,15 @@
                 (or (buffer-file-name) load-file-name)))
 
 ;; Theme
-(load-theme 'wombat t)
+;(load-theme 'wombat t)
 ;(load-theme 'afternoon t)
 ;(load-theme 'ujelly t)
+
+; Light
+;(load-theme 'material-light t)
+
+(load-theme 'material t)
+
 
 ;; Disable window-system s**t
 (when window-system
@@ -157,9 +163,14 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+;; everything is indented 2 spaces
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+
 ;; Nyam-mode
-(nyan-mode)
-(nyan-start-animation)
+;(nyan-mode)
+;(nyan-start-animation)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smart Parents Config
@@ -293,6 +304,7 @@
 
 ;; ORG MODE
 (add-to-list 'load-path "~/.emacs.d/org-mode/")
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
 
 ;; We only need Emacs Lisp and Clojure in this tutorial:
@@ -313,7 +325,11 @@
 (setq org-use-speed-commands t)
 (setq org-directory "~/Notas")
 (setq org-default-notes-file (concat org-directory "/capture.org"))
+
 (define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cb" 'org-iswitchb)
 
 ;(add-to-list 'org-babel-load-languages '(emacs-lisp . t))
 ;(add-to-list 'org-babel-load-languages '(clojure . t))
@@ -324,17 +340,18 @@
 (set-register ?t (cons 'file (concat org-directory "/capture.org")))
 (set-register ?e (cons 'file "~/.emacs.d/init.el"))
 
+(setq org-agenda-files (quote ("~/Notas/organizer.org"
+                               "~/Notas/capture.org")))
+
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (org-defkey org-mode-map [(control ?\')] 'er/expand-region)))
 
 ;; Export to asciidoctor
 (require 'ox-asciidoc)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Notas/organizer.org"))))
 
 ;; CIDER
 (require 'cider)
@@ -344,3 +361,41 @@
       cider-repl-popup-stacktraces t)
 
 
+;; Modeline config
+(display-time-mode t)
+(column-number-mode t)
+
+;; Smart modeline
+(setq sml/no-confirm-load-theme t)
+(setq sml/theme 'powerline)
+(sml/setup)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(sml/line-number ((t (:inherit sml/global :background "black" :foreground "White" :weight normal))))
+ '(sml/minor-modes ((t (:inherit sml/folder :foreground "gold")))))
+
+;; Show paren mode
+(require 'paren)
+(show-paren-mode 1)
+
+;; Magit
+(global-set-key (kbd "C-c g") 'magit-status)
+(setq magit-push-always-verify nil)
+
+;; smex
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
