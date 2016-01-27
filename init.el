@@ -37,6 +37,8 @@
 (setq inhibit-startup-screen t)
 (setq visible-bell 1)
 (setq echo-keystrokes 0.02)
+
+;;asdfasd
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -126,9 +128,9 @@
 
 ;; Ace Jump
 (require 'ace-jump-mode)
-(define-key global-map (kbd "C-c j w") 'ace-jump-word-mode)
-(define-key global-map (kbd "C-c j c") 'ace-jump-char-mode)
-(define-key global-map (kbd "C-c j l") 'ace-jump-line-mode)
+(define-key global-map (kbd "C-;") 'ace-jump-word-mode)
+;(define-key global-map (kbd "C-c j c") 'ace-jump-char-mode)
+;(define-key global-map (kbd "C-c j l") 'ace-jump-line-mode)
 
 ;; Org mode
 (setq org-log-done t)
@@ -162,11 +164,19 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 
 ;; everything is indented 2 spaces
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
-(setq web-mode-code-indent-offset 2)
+(setq web-mode-markup-indent-offset 4)
+(setq web-mode-css-indent-offset 4)
+(setq web-mode-code-indent-offset 4)
+(setq js-indent-level 4)
+(setq web-mode-content-types-alist '(("jsx"  . ".*\\.js[x]?\\'")))
+
+(add-hook
+ 'html-mode-hook
+ (lambda ()
+   (set (make-local-variable 'sgml-basic-offset) 2)))
 
 ;; Nyam-mode
 ;(nyan-mode)
@@ -376,14 +386,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(custom-safe-themes
    (quote
-    ("26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default))))
+    ("4a162cd971cf3c059e827d6b5aa0bd07488cb5995782c0fa0ce20621bbc4a596" "c18fd02975a561463871fe37752f7143c620054b9898d6d59d95a18531222d7d" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default)))
+ '(hl-sexp-background-color "#1c1f26"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mode-line-inactive ((t (:inherit mode-line :background "Black" :foreground "gray60" :box (:line-width -2 :color "black") :slant italic :weight normal))))
  '(sml/line-number ((t (:inherit sml/global :background "black" :foreground "White" :weight normal))))
  '(sml/minor-modes ((t (:inherit sml/folder :foreground "gold")))))
 
@@ -401,4 +415,58 @@
 (global-set-key (kbd "M-x") 'smex)
 
 ;; visual improvement
-(setq default-line-spacing 4)
+(setq default-line-spacing 3)
+
+
+;; Clojure mode
+(add-hook
+ 'clojure-mode-hook
+ '(lambda ()
+    ;; Om Specific
+    (define-clojure-indent
+      (h1 'defun)
+      (h2 'defun)
+      (h3 'defun)
+      (h4 'defun)
+      (h5 'defun)
+      (h6 'defun)
+      (div 'defun)
+      (span 'defun)
+      (section 'defun)
+      (nav 'defun)
+      (article 'defun)
+      (aside 'defun)
+      (input 'defun)
+      (form 'defun)
+      (textarea 'defun)
+      (ul 'defun)
+      (ol 'defun)
+      (li 'defun))
+
+    (define-clojure-indent
+      (init-state 'defun)
+      (render 'defun)
+      (render-state 'defun)
+      (will-mount 'defun)
+      (will-unmount 'defun)
+      (will-receive-props 'defun)
+      (did-mount 'defun)
+      (did-update 'defun)
+      (match 'defun)
+      )
+
+    (define-clojure-indent
+      (it 1)
+      (async 'defun)
+      (errlet 1)
+      (maybe-let 1)
+      (atomic 'defun)
+      (mlet 1))))
+
+
+;; Volatile highlight for certain operations
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+;; Haskell mode
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
