@@ -6,9 +6,17 @@
 ; (add-to-list 'load-path "~/.emacs.d/")
 
 ;; Package Manager
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
+(pallet-mode t)
 
 ;; Root directory
 (setq root-dir (file-name-directory
@@ -38,7 +46,6 @@
 (setq visible-bell 1)
 (setq echo-keystrokes 0.02)
 
-;;asdfasd
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -61,15 +68,15 @@
 (setq-default nxml-child-indent tab-width)
 (setq-default nxml-outline-child-indent tab-width)
 (setq js-indent-level 4)
-
 (setq x-stretch-cursor 1)
+(setq sws-tab-width 4)
 
 (require 'highlight-chars)
 (defun set-highlight (mode-hook)
   (add-hook mode-hook 'hc-highlight-tabs)
   (add-hook mode-hook 'hc-highlight-trailing-whitespace))
 
-(set-highlight 'prog-mode-hook)
+(set-highlight 'prog-mode-hook) ;
 (set-highlight 'c-mode-common-hook)
 
 ;; Set auto-indent when enter
@@ -165,6 +172,16 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.pug\\'" . jade-mode))
+
+(require 'scala-mode)
+(add-to-list 'auto-mode-alist '("\\.sbt\\'" . scala-mode))
+(add-to-list 'auto-mode-alist '("\\.scala\\'" . scala-mode))
+
+(require 'typescript-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
 ;; everything is indented 2 spaces
 (setq web-mode-markup-indent-offset 4)
@@ -391,7 +408,10 @@
  '(custom-safe-themes
    (quote
     ("4a162cd971cf3c059e827d6b5aa0bd07488cb5995782c0fa0ce20621bbc4a596" "c18fd02975a561463871fe37752f7143c620054b9898d6d59d95a18531222d7d" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default)))
- '(hl-sexp-background-color "#1c1f26"))
+ '(hl-sexp-background-color "#1c1f26")
+ '(package-selected-packages
+   (quote
+    (focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg typescript-mode haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -470,3 +490,11 @@
 
 ;; Haskell mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+
+(require 'sicp)
+
+(require 'editorconfig)
+(editorconfig-mode 1)
+
+(require 'js-import "~/.emacs.d/js-import.el")
