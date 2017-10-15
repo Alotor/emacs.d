@@ -10,3 +10,6 @@ tramp
 ido.last
 .mc-lists.el
 bookmarks
+network-security.data
+smex-items
+url/

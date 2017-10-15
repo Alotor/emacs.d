@@ -79,6 +79,8 @@
 (set-highlight 'prog-mode-hook) ;
 (set-highlight 'c-mode-common-hook)
 
+(add-hook 'go-mode-hook 'hc-dont-highlight-tabs)
+
 ;; Set auto-indent when enter
 (global-set-key "\C-m" 'newline-and-indent)
 
@@ -172,6 +174,7 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.pug\\'" . jade-mode))
@@ -394,8 +397,9 @@
 
 ;; Smart modeline
 (setq sml/no-confirm-load-theme t)
-(setq sml/theme 'powerline)
 (sml/setup)
+(setq sml/theme 'powerline)
+
 
 
 (custom-set-variables
@@ -407,11 +411,14 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(custom-safe-themes
    (quote
-    ("4a162cd971cf3c059e827d6b5aa0bd07488cb5995782c0fa0ce20621bbc4a596" "c18fd02975a561463871fe37752f7143c620054b9898d6d59d95a18531222d7d" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default)))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "4a162cd971cf3c059e827d6b5aa0bd07488cb5995782c0fa0ce20621bbc4a596" "c18fd02975a561463871fe37752f7143c620054b9898d6d59d95a18531222d7d" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" default)))
  '(hl-sexp-background-color "#1c1f26")
+ '(org-agenda-files
+   (quote
+    ("~/kaleidos/notas/seequestor/issues24enero.org" "~/Notas/organizer.org" "~/Notas/capture.org")))
  '(package-selected-packages
    (quote
-    (focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg typescript-mode haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
+    (multiple-cursors stylus-mode adoc-mode protobuf-mode focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg typescript-mode haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -492,9 +499,13 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 
-(require 'sicp)
+; (require 'sicp)
 
 (require 'editorconfig)
 (editorconfig-mode 1)
 
 (require 'js-import "~/.emacs.d/js-import.el")
+
+(add-to-list 'load-path "~/.emacs.d/org-asciidoc/")
+(require 'ox-asciidoc)
+(put 'upcase-region 'disabled nil)
