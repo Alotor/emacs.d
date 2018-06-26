@@ -71,7 +71,7 @@
 (setq x-stretch-cursor 1)
 (setq sws-tab-width 4)
 
-(require 'highlight-chars)
+(require 'highlight-chars "~/.emacs.d/highlight-chars.el")
 (defun set-highlight (mode-hook)
   (add-hook mode-hook 'hc-highlight-tabs)
   (add-hook mode-hook 'hc-highlight-trailing-whitespace))
@@ -418,7 +418,7 @@
     ("~/kaleidos/notas/seequestor/issues24enero.org" "~/Notas/organizer.org" "~/Notas/capture.org")))
  '(package-selected-packages
    (quote
-    (pg kotlin-mode wgrep-ag multiple-cursors stylus-mode adoc-mode protobuf-mode focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg typescript-mode haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
+    (htmlize pg kotlin-mode wgrep-ag multiple-cursors stylus-mode adoc-mode protobuf-mode focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -566,3 +566,5 @@
          (beginning-of-line))))
 
 (global-set-key (kbd "C-a") 'smart-beginning-of-line)
+
+(delete-selection-mode 1)
