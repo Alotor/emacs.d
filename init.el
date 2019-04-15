@@ -85,12 +85,19 @@
 (global-set-key "\C-m" 'newline-and-indent)
 
 ;; Backup files
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+
+; (require 'no-littering)
+
+; (setq auto-save-file-name-transforms
+;       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 (setq delete-old-versions -1) ;; Extra saving
 (setq backup-by-copying t)
 (setq version-control t)
 (setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list" t)))
+; (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list" t)))
 
 ;; History
 (setq savehist-file "~/.emacs.d/savehist")
@@ -418,7 +425,7 @@
     ("~/kaleidos/notas/seequestor/issues24enero.org" "~/Notas/organizer.org" "~/Notas/capture.org")))
  '(package-selected-packages
    (quote
-    (htmlize pg kotlin-mode wgrep-ag multiple-cursors stylus-mode adoc-mode protobuf-mode focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
+    (flycheck-kotlin flycheck omnisharp company company-web kotlin-mode no-littering rust-mode htmlize pg wgrep-ag multiple-cursors stylus-mode adoc-mode protobuf-mode focus restclient csharp-mode fsharp-mode go-mode elm-mode tuareg haskell-mode cmake-mode matlab-mode dockerfile-mode magit yaml-mode web-mode volatile-highlights undo-tree ujelly-theme smex smartparens smart-mode-line-powerline-theme sicp scala-mode sass-mode rainbow-delimiters python-mode projectile php-mode pallet ox-asciidoc nyan-mode moe-theme material-theme markdown-mode less-css-mode json-mode jade-mode ido-vertical-mode ido-at-point highlight-chars groovy-mode flx-ido expand-region editorconfig django-mode cider ag afternoon-theme ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -568,3 +575,18 @@
 (global-set-key (kbd "C-a") 'smart-beginning-of-line)
 
 (delete-selection-mode 1)
+
+;; Flycheck
+(global-flycheck-mode)
+
+;; Company
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'csharp-mode-hook #'flycheck-mode)
+
+
+(eval-after-load
+ 'company
+ '(add-to-list 'company-backends 'company-omnisharp))
+
+(add-hook 'csharp-mode-hook #'company-mode)
